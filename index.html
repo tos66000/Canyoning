@@ -8,11 +8,6 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet-search.css">
-        <link rel="stylesheet" href="css/filter.css">
-<link rel="stylesheet" href="css/nouislider.min.css">
-        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
-        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -37,33 +32,15 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-tilelayer-wmts.js"></script>
-        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
-        <script src="js/leaflet-measure.js"></script>
-        <script src="js/leaflet-search.js"></script>
-        <script src="js/tailDT.js"></script>
-<script src="js/nouislider.min.js"></script>
-<script src="js/wNumb.js"></script>
-        <script src="data/Marche_2.js"></script>
-        <script src="data/Marche_3.js"></script>
+        <script src="data/marche_path_2.js"></script>
+        <script src="data/Canyon_3.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[42.655706866365236,2.8206594067346815],[42.757966957151226,2.9988472110584574]]);
+        }).fitBounds([[42.69284185201874,2.86306369915995],[42.71502254340063,2.9407313264432062]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
-        var measureControl = new L.Control.Measure({
-            position: 'topleft',
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: 'hectares'
-        });
-        measureControl.addTo(map);
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .innerHTML = '';
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
-        .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -95,12 +72,18 @@
             attribution: '',
         });
         map.addLayer(layer_CartetopographiqueIGNScan25_1);
-        function pop_Marche_2(feature, layer) {
+        function pop_marche_path_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID'] !== null ? autolinker.link(feature.properties['FID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Marche_2_0() {
+        function style_marche_path_2_0() {
             return {
-                pane: 'pane_Marche_2',
+                pane: 'pane_marche_path_2',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -111,9 +94,9 @@
                 interactive: true,
             }
         }
-        function style_Marche_2_1() {
+        function style_marche_path_2_1() {
             return {
-                pane: 'pane_Marche_2',
+                pane: 'pane_marche_path_2',
                 opacity: 1,
                 color: 'rgba(255,96,17,1.0)',
                 dashArray: '',
@@ -124,50 +107,49 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Marche_2');
-        map.getPane('pane_Marche_2').style.zIndex = 402;
-        map.getPane('pane_Marche_2').style['mix-blend-mode'] = 'normal';
-        var layer_Marche_2 = new L.geoJson.multiStyle(json_Marche_2, {
+        map.createPane('pane_marche_path_2');
+        map.getPane('pane_marche_path_2').style.zIndex = 402;
+        map.getPane('pane_marche_path_2').style['mix-blend-mode'] = 'normal';
+        var layer_marche_path_2 = new L.geoJson.multiStyle(json_marche_path_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Marche_2',
-            layerName: 'layer_Marche_2',
-            pane: 'pane_Marche_2',
-            onEachFeature: pop_Marche_2,
-            styles: [style_Marche_2_0,style_Marche_2_1,]
+            dataVar: 'json_marche_path_2',
+            layerName: 'layer_marche_path_2',
+            pane: 'pane_marche_path_2',
+            onEachFeature: pop_marche_path_2,
+            styles: [style_marche_path_2_0,style_marche_path_2_1,]
         });
-        bounds_group.addLayer(layer_Marche_2);
-        map.addLayer(layer_Marche_2);
-        function pop_Marche_3(feature, layer) {
+        bounds_group.addLayer(layer_marche_path_2);
+        map.addLayer(layer_marche_path_2);
+        function pop_Canyon_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID'] !== null ? autolinker.link(feature.properties['FID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Marche_3_0() {
+        function style_Canyon_3_0() {
             return {
-                pane: 'pane_Marche_3',
-                opacity: 1,
-                color: 'rgba(72,123,182,1.0)',
-                dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 4.0,
-                fillOpacity: 0,
+                pane: 'pane_Canyon_3',
                 interactive: true,
             }
         }
-        map.createPane('pane_Marche_3');
-        map.getPane('pane_Marche_3').style.zIndex = 403;
-        map.getPane('pane_Marche_3').style['mix-blend-mode'] = 'normal';
-        var layer_Marche_3 = new L.geoJson(json_Marche_3, {
+        map.createPane('pane_Canyon_3');
+        map.getPane('pane_Canyon_3').style.zIndex = 403;
+        map.getPane('pane_Canyon_3').style['mix-blend-mode'] = 'normal';
+        var layer_Canyon_3 = new L.geoJson(json_Canyon_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Marche_3',
-            layerName: 'layer_Marche_3',
-            pane: 'pane_Marche_3',
-            onEachFeature: pop_Marche_3,
-            style: style_Marche_3_0,
+            dataVar: 'json_Canyon_3',
+            layerName: 'layer_Canyon_3',
+            pane: 'pane_Canyon_3',
+            onEachFeature: pop_Canyon_3,
+            style: style_Canyon_3_0,
         });
-        bounds_group.addLayer(layer_Marche_3);
-        map.addLayer(layer_Marche_3);
+        bounds_group.addLayer(layer_Canyon_3);
+        map.addLayer(layer_Canyon_3);
             var title = new L.Control();
             title.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info');
@@ -178,175 +160,7 @@
                 this._div.innerHTML = '<h2>projet_canyon (QFieldCloud)</h2>';
             };
             title.addTo(map);
-        var osmGeocoder = new L.Control.Geocoder({
-            collapsed: true,
-            position: 'topleft',
-            text: 'Search',
-            title: 'Testing'
-        }).addTo(map);
-        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .className += ' fa fa-search';
-        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
-        .title += 'Search for a place';
-        var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/Marche_3.png" /> Marche': layer_Marche_3,'<img src="legend/Marche_2.png" /> Marche': layer_Marche_2,"Carte topographique (IGN Scan25)": layer_CartetopographiqueIGNScan25_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
         setBounds();
-        map.addControl(new L.Control.Search({
-            layer: layer_Marche_3,
-            initial: false,
-            hideMarkerOnCollapse: true,
-            propertyName: 'FID'}));
-        document.getElementsByClassName('search-button')[0].className +=
-         ' fa fa-binoculars';
-        var mapDiv = document.getElementById('map');
-        var row = document.createElement('div');
-        row.className="row";
-        row.id="all";
-        row.style.height = "100%";
-        var col1 = document.createElement('div');
-        col1.className="col9";
-        col1.id = "mapWindow";
-        col1.style.height = "99%";
-        col1.style.width = "80%";
-        col1.style.display = "inline-block";
-        var col2 = document.createElement('div');
-        col2.className="col3";
-        col2.id = "menu";
-        col2.style.display = "inline-block";
-        mapDiv.parentNode.insertBefore(row, mapDiv);
-        document.getElementById("all").appendChild(col1);
-        document.getElementById("all").appendChild(col2);
-        col1.appendChild(mapDiv)
-        var Filters = {"FID": "int"};
-        function filterFunc() {
-          map.eachLayer(function(lyr){
-          if ("options" in lyr && "dataVar" in lyr["options"]){
-            features = this[lyr["options"]["dataVar"]].features.slice(0);
-            try{
-              for (key in Filters){
-                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
-                if (Filters[key] == "str" || Filters[key] == "bool"){
-                  var selection = [];
-                  var options = document.getElementById("sel_" + keyS).options
-                  for (var i=0; i < options.length; i++) {
-                    if (options[i].selected) selection.push(options[i].value);
-                  }
-                    try{
-                      if (key in features[0].properties){
-                        for (i = features.length - 1;
-                          i >= 0; --i){
-                          if (selection.indexOf(
-                          features[i].properties[key])<0
-                          && selection.length>0) {
-                          features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                  }
-                }
-                if (Filters[key] == "int"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (parseInt(features[i].properties[key])
-                          < sliderVals[0]
-                          || parseInt(features[i].properties[key])
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "real"){
-                  sliderVals =  document.getElementById(
-                    "div_" + keyS).noUiSlider.get();
-                  try{
-                    if (key in features[0].properties){
-                    for (i = features.length - 1; i >= 0; --i){
-                      if (features[i].properties[key]
-                          < sliderVals[0]
-                          || features[i].properties[key]
-                          > sliderVals[1]){
-                            features.splice(i,1);
-                          }
-                        }
-                      }
-                    } catch(err){
-                    }
-                  }
-                if (Filters[key] == "date"
-                  || Filters[key] == "datetime"
-                  || Filters[key] == "time"){
-                  try{
-                    if (key in features[0].properties){
-                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
-                      startdate = document.getElementById("dat_" +
-                        HTMLkey + "_date1").value.replace(" ", "T");
-                      enddate = document.getElementById("dat_" +
-                        HTMLkey + "_date2").value.replace(" ", "T");
-                      for (i = features.length - 1; i >= 0; --i){
-                        if (features[i].properties[key] < startdate
-                          || features[i].properties[key] > enddate){
-                          features.splice(i,1);
-                        }
-                      }
-                    }
-                  } catch(err){
-                  }
-                }
-              }
-            } catch(err){
-            }
-          this[lyr["options"]["layerName"]].clearLayers();
-          this[lyr["options"]["layerName"]].addData(features);
-          }
-          })
-        }
-            document.getElementById("menu").appendChild(
-                document.createElement("div"));
-            var div_FID = document.createElement("div");
-            div_FID.id = "div_FID";
-            div_FID.className = "slider";
-            document.getElementById("menu").appendChild(div_FID);
-            var lab_FID = document.createElement('div');
-            lab_FID.innerHTML  = 'FID: <span id="val_FID"></span>';
-            lab_FID.className = 'filterlabel';
-            document.getElementById("menu").appendChild(lab_FID);
-            var reset_FID = document.createElement('div');
-            reset_FID.innerHTML = 'clear filter';
-            reset_FID.className = 'filterlabel';
-            lab_FID.className = 'filterlabel';
-            reset_FID.onclick = function() {
-                sel_FID.noUiSlider.reset();
-            };
-            document.getElementById("menu").appendChild(reset_FID);
-            var sel_FID = document.getElementById('div_FID');
-            noUiSlider.create(sel_FID, {
-                connect: true,
-                start: [0, 5],
-                step: 1,
-                format: wNumb({
-                    decimals: 0,
-                    }),
-                range: {
-                min: 0,
-                max: 5
-                }
-            });
-            sel_FID.noUiSlider.on('update', function (values) {
-            filterVals =[];
-            for (value in values){
-            filterVals.push(parseInt(value))
-            }
-            val_FID = document.getElementById('val_FID');
-            val_FID.innerHTML = values.join(' - ');
-                filterFunc()
-            });
         </script>
     </body>
 </html>
